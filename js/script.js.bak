@@ -1,0 +1,1046 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize variables
+    const birthdayDate = new Date(2025, 7, 18); // Month is 0-indexed, so 7 is August
+    const sections = document.querySelectorAll('.section');
+    const preloader = document.querySelector('.preloader');
+    const passwordProtection = document.getElementById('password-protection');
+    const audioButton = document.getElementById('toggle-audio');
+    const backgroundMusic = document.getElementById('background-music');
+    let currentSection = 0;
+    
+    // Preloader
+    // Hide preloader immediately
+    if (preloader) {
+        preloader.style.opacity = '0';
+        preloader.style.visibility = 'hidden';
+        preloader.style.display = 'none';
+        
+        // Check if birthday and handle password protection
+        checkBirthdayAndPassword();
+    } else {
+        console.error('Preloader element not found');
+    }
+    
+    // Password Protection and Birthday Check
+    function checkBirthdayAndPassword() {
+        const currentDate = new Date();
+        
+        // Check if it's the birthday
+        if (currentDate.getDate() === birthdayDate.getDate() && 
+            currentDate.getMonth() === birthdayDate.getMonth() && 
+            currentDate.getFullYear() === birthdayDate.getFullYear()) {
+            // It's the birthday! Skip password and show content
+            passwordProtection.style.display = 'none';
+            startCountdown();
+        } else {
+            // Not the birthday, show password protection
+            passwordProtection.style.display = 'flex';
+            startLockCountdown();
+            
+            // Password submission handling
+            const passwordInput = document.getElementById('password-input');
+            const passwordSubmit = document.getElementById('password-submit');
+            const passwordError = document.getElementById('password-error');
+            
+            // Set a password - you can change this to anything you want
+            const correctPassword = 'jaishreekrishna'; // New password as requested
+            
+            // Track wrong password attempts
+            let passwordAttempts = 0;
+            const maxAttempts = 3;
+            
+            passwordSubmit.addEventListener('click', checkPassword);
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkPassword();
+                }
+            });
+            
+            function checkPassword() {
+                if (passwordInput.value === correctPassword) {
+                    // Password is correct
+                    passwordProtection.style.opacity = '0';
+                    setTimeout(() => {
+                        passwordProtection.style.display = 'none';
+                        startCountdown();
+                    }, 800);
+                } else {
+                    // Password is incorrect
+                    passwordAttempts++;
+                    
+                    if (passwordAttempts >= maxAttempts) {
+                        // Lock after 3 attempts
+                        passwordError.innerHTML = 'आप अपने प्रयासों को लॉक कर चुके हैं! अब 18 अगस्त को आना!' + 
+                                              '<br>You have locked your attempts! Come back on August 18th!';
+                        passwordInput.disabled = true;
+                        passwordSubmit.disabled = true;
+                    } else {
+                        // Show regular error
+                        passwordError.textContent = `Incorrect password! ${maxAttempts - passwordAttempts} attempts remaining`;
+                    }
+                    
+                    passwordError.style.display = 'block';
+                    passwordInput.value = '';
+                    
+                    if (!passwordInput.disabled) {
+                        passwordInput.focus();
+                    }
+                    
+                    // Add shake animation
+                    passwordInput.classList.add('shake');
+                    setTimeout(() => {
+                        passwordInput.classList.remove('shake');
+                    }, 500);
+                }
+            }
+        }
+    }
+    
+    // Lock Screen Countdown
+    function startLockCountdown() {
+        function updateLockCountdown() {
+            const currentDate = new Date();
+            const diff = birthdayDate - currentDate;
+            
+            if (diff <= 0) {
+                // It's the birthday!
+                passwordProtection.style.display = 'none';
+                startCountdown();
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('lock-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('lock-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('lock-minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('lock-seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        // Initial update
+        updateLockCountdown();
+        
+        // Update every second
+        setInterval(updateLockCountdown, 1000);
+    }
+    
+    // Countdown Timer for Landing Page
+    function startCountdown() {
+        const countdownDisplay = document.getElementById('countdown-display');
+        const birthdayMessage = document.getElementById('birthday-message');
+        const continueButton = document.getElementById('continue-button');
+        
+        function updateCountdown() {
+            const currentDate = new Date();
+            const diff = birthdayDate - currentDate;
+            
+            if (diff <= 0) {
+                // It's the birthday!
+                countdownDisplay.style.display = 'none';
+                birthdayMessage.style.display = 'block';
+                continueButton.style.display = 'none';
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        // Initial update
+        updateCountdown();
+        
+        // Update every second
+        setInterval(updateCountdown, 1000);
+    }
+    
+    // Event listeners for navigation buttons
+    document.getElementById('continue-button').addEventListener('click', function() {
+        document.getElementById('message').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+            showSection(1); // Navigate to message section (index 1)
+        }, 800);
+    });
+    
+    document.getElementById('start-journey').addEventListener('click', function() {
+        document.getElementById('message').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+            showSection(1); // Navigate to message section (index 1)
+        }, 800);
+    });
+    
+    // Navigation between sections - make it globally accessible for button onclick handlers
+    window.showSection = function(index) {
+        // If index is a string (section id), convert it to the appropriate index
+        if (typeof index === 'string') {
+            const sectionId = index;
+            // Find the index of the section with this id
+            for (let i = 0; i < sections.length; i++) {
+                if (sections[i].id === sectionId) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        
+        // First hide all sections
+        sections.forEach(section => {
+            if (section.classList.contains('active')) {
+                section.classList.remove('active');
+            }
+        });
+        
+        // Show the selected section after a brief delay for transitions
+        if (index >= 0 && index < sections.length) {
+            // Small timeout to allow CSS transitions to work properly
+            setTimeout(() => {
+                window.scrollTo(0, 0); // Scroll to top for new section
+                sections[index].classList.add('active');
+                
+                // Section-specific animations
+                if (index === 1) animateMessageSection();
+                else if (index === 2) animateGallerySection();
+                else if (index === 3) animateTimelineSection();
+                else if (index === 4) animateMemoryGameSection();
+                else if (index === 5) animateVideoSection();
+                else if (index === 6) animateQuizSection();
+                else if (index === 7) { // Cake Section
+                    // Custom event to initialize cake section
+                    document.dispatchEvent(new CustomEvent('sectionchange', { 
+                        detail: { section: 'cake' } 
+                    }));
+                }
+                else if (index === 8) { // Wishes Fountain Section
+                    // Nothing special needed here
+                }
+                else if (index === 9) animateGiftSection();
+                else if (index === 10) animateWishesSection();
+                
+                // Custom event for any section change
+                document.dispatchEvent(new CustomEvent('sectionchange', { 
+                    detail: { section: sections[index].id } 
+                }));
+            }, 100);
+        }
+    }
+    
+    // Section-specific animations
+    function animateMessageSection() {
+        const messageCard = document.querySelector('.message-card');
+        messageCard.style.animation = 'slide-up 1s forwards';
+    }
+    
+    function animateGallerySection() {
+        const frames = document.querySelectorAll('.photo-frame');
+        frames.forEach((frame, index) => {
+            frame.style.animationDelay = `${0.2 * (index + 1)}s`;
+            frame.style.animation = 'pop-in 0.5s forwards';
+        });
+    }
+    
+    function animateTimelineSection() {
+        const timelineData = [
+            {
+                date: 'First Day We Met',
+                title: 'The Beginning',
+                description: 'Add details about how you two first met',
+                image: 'placeholder1.jpg'
+            },
+            {
+                date: 'First Date',
+                title: 'Our First Date',
+                description: 'Describe your first date together',
+                image: 'placeholder2.jpg'
+            },
+            {
+                date: 'Special Moment',
+                title: 'A Special Memory',
+                description: 'Share a meaningful moment in your relationship',
+                image: 'placeholder3.jpg'
+            },
+            {
+                date: 'Today',
+                title: 'Your Birthday!',
+                description: 'Happy Birthday to the most amazing person in my life!',
+                image: 'birthday.jpg'
+            }
+        ];
+
+        const timeline = document.querySelector('.timeline');
+        const dotsContainer = document.querySelector('.timeline-dots');
+        const progressBar = document.querySelector('.progress-bar');
+        const prevBtn = document.getElementById('timeline-prev');
+        const nextBtn = document.getElementById('timeline-next');
+        
+        let currentIndex = 0;
+        const totalItems = timelineData.length;
+
+        // Create timeline items
+        function createTimelineItems() {
+            timeline.innerHTML = '';
+            dotsContainer.innerHTML = '';
+
+            timelineData.forEach((item, index) => {
+                // Create timeline item
+                const timelineItem = document.createElement('div');
+                timelineItem.className = `timeline-item ${index === 0 ? 'active' : ''}`;
+                timelineItem.innerHTML = `
+                    <div class="timeline-content">
+                        <div class="timeline-date">${item.date}</div>
+                        <h3>${item.title}</h3>
+                        <p>${item.description}</p>
+                        <div class="timeline-image">
+                            <p>Add Photo</p>
+                        </div>
+                    </div>
+                `;
+                timeline.appendChild(timelineItem);
+
+                // Create dot
+                const dot = document.createElement('button');
+                dot.className = `timeline-dot-btn ${index === 0 ? 'active' : ''}`;
+                dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+
+            updateNavigation();
+        }
+
+        // Update navigation buttons state
+        function updateNavigation() {
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === totalItems - 1;
+            
+            // Update active dot
+            document.querySelectorAll('.timeline-dot-btn').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+            
+            // Update progress bar
+            const progress = ((currentIndex + 1) / totalItems) * 100;
+            progressBar.style.width = `${progress}%`;
+            
+            // Update active class on timeline items
+            document.querySelectorAll('.timeline-item').forEach((item, index) => {
+                item.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        // Go to specific slide
+        function goToSlide(index) {
+            if (index < 0 || index >= totalItems) return;
+            
+            currentIndex = index;
+            const itemWidth = 100; // 100% of viewport width
+            timeline.scrollTo({
+                left: index * itemWidth + '%',
+                behavior: 'smooth'
+            });
+            
+            updateNavigation();
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                goToSlide(currentIndex - 1);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalItems - 1) {
+                goToSlide(currentIndex + 1);
+            }
+        });
+
+        // Handle keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                goToSlide(currentIndex - 1);
+            } else if (e.key === 'ArrowRight' && currentIndex < totalItems - 1) {
+                goToSlide(currentIndex + 1);
+            }
+        });
+
+        // Handle swipe on touch devices
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        timeline.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        timeline.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50; // Minimum distance for a swipe
+            const swipeDistance = touchEndX - touchStartX;
+
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                if (swipeDistance > 0 && currentIndex > 0) {
+                    // Swipe right - go to previous
+                    goToSlide(currentIndex - 1);
+                } else if (swipeDistance < 0 && currentIndex < totalItems - 1) {
+                    // Swipe left - go to next
+                    goToSlide(currentIndex + 1);
+                }
+            }
+        }
+
+        // Initialize the timeline
+        createTimelineItems();
+    }
+    
+    function animateMemoryGameSection() {
+        // Initialize the memory game
+        initMemoryGame();
+    }
+    
+    function animateGiftSection() {
+        // Animation happens when the gift is clicked
+    }
+    
+    function animateWishesSection() {
+        const floatingHearts = document.querySelector('.floating-hearts');
+        
+        // Create more floating hearts dynamically
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-float');
+            heart.innerHTML = '❤';
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.animationDelay = `${Math.random() * 5}s`;
+            heart.style.animationDuration = `${Math.random() * 5 + 5}s`;
+            heart.style.fontSize = `${Math.random() * 15 + 10}px`;
+            heart.style.opacity = Math.random() * 0.7 + 0.3;
+            
+            floatingHearts.appendChild(heart);
+        }
+    }
+    
+    // Memory Game Initialization
+    function initMemoryGame() {
+        const memoryCardsContainer = document.querySelector('.memory-cards');
+        const resetButton = document.getElementById('reset-game');
+        const moveCountDisplay = document.getElementById('move-count');
+        const matchCountDisplay = document.getElementById('match-count');
+        const gameCompleteMessage = document.getElementById('game-complete');
+        
+        // Sample card data - replace these with your own images
+        const cardData = [
+            { name: 'moment1', emoji: '💖' },
+            { name: 'moment2', emoji: '💕' },
+            { name: 'moment3', emoji: '💞' },
+            { name: 'moment4', emoji: '💗' },
+            { name: 'moment5', emoji: '💓' },
+            { name: 'moment6', emoji: '💘' },
+        ];
+        
+        // Create a deck with pairs
+        const deck = [...cardData, ...cardData];
+        let shuffledDeck = [];
+        let moves = 0;
+        let matches = 0;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        
+        // Initialize game
+        function initGame() {
+            shuffledDeck = shuffleDeck(deck);
+            moves = 0;
+            matches = 0;
+            hasFlippedCard = false;
+            lockBoard = false;
+            memoryCardsContainer.innerHTML = '';
+            moveCountDisplay.textContent = moves;
+            matchCountDisplay.textContent = matches;
+            gameCompleteMessage.style.display = 'none';
+            
+            // Create cards
+            shuffledDeck.forEach((item, index) => createCard(item, index));
+        }
+        
+        // Shuffle the deck using Fisher-Yates algorithm
+        function shuffleDeck(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+        
+        // Create a card element
+        function createCard(item, index) {
+            const card = document.createElement('div');
+            card.classList.add('memory-card');
+            card.dataset.name = item.name;
+            card.dataset.index = index;
+            
+            const frontFace = document.createElement('div');
+            frontFace.classList.add('front-face');
+            
+            // You can replace this with an image
+            frontFace.textContent = item.emoji;
+            frontFace.style.fontSize = '3rem';
+            
+            const backFace = document.createElement('div');
+            backFace.classList.add('back-face');
+            backFace.textContent = '?';
+            
+            card.appendChild(frontFace);
+            card.appendChild(backFace);
+            
+            card.addEventListener('click', flipCard);
+            memoryCardsContainer.appendChild(card);
+        }
+        
+        // Handle card flipping
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+            
+            this.classList.add('flip');
+            
+            if (!hasFlippedCard) {
+                // First click
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+            
+            // Second click
+            secondCard = this;
+            lockBoard = true;
+            
+            // Increment move counter
+            moves++;
+            moveCountDisplay.textContent = moves;
+            
+            // Check for match
+            checkForMatch();
+        }
+        
+        // Check if the cards match
+        function checkForMatch() {
+            const isMatch = firstCard.dataset.name === secondCard.dataset.name;
+            
+            if (isMatch) {
+                disableCards();
+                matches++;
+                matchCountDisplay.textContent = matches;
+                
+                // Check if game is complete
+                if (matches === cardData.length) {
+                    setTimeout(() => {
+                        gameCompleteMessage.style.display = 'block';
+                    }, 500);
+                }
+            } else {
+                unflipCards();
+            }
+        }
+        
+        // Disable matched cards
+        function disableCards() {
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            
+            resetBoard();
+        }
+        
+        // Unflip unmatched cards
+        function unflipCards() {
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                
+                resetBoard();
+            }, 1000);
+        }
+        
+        // Reset board after each round
+        function resetBoard() {
+    }
+
+    // Reset board after each round
+    function resetBoard() {
+        [hasFlippedCard, lockBoard] = [false, false];
+        [firstCard, secondCard] = [null, null];
+    }
+
+    // Reset button
+    resetButton.addEventListener('click', initGame);
+
+    // Start the game
+    initGame();
+}
+
+// Video Section Initialization
+function initVideoSection() {
+    const videoContainer = document.querySelector('.video-container');
+    const video = document.querySelector('video');
+
+    // Add event listener to video
+    if (video) {
+        video.addEventListener('ended', function() {
+            // Show continue button after video ends
+            document.getElementById('videos-continue').style.display = 'block';
+        });
+    }
+}
+
+// Gallery Initialization
+function initGallery() {
+    // Add animations to gallery elements
+    const galleryContainer = document.querySelector('.gallery-container');
+    const continueButton = document.getElementById('gallery-continue');
+    const scratchContainers = document.querySelectorAll('.scratch-container');
+    
+    // Initialize scratch-to-reveal functionality
+    scratchContainers.forEach(container => {
+        initScratchToReveal(container);
+    });
+    
+    if (continueButton) {
+        continueButton.addEventListener('click', function() {
+            document.getElementById('timeline').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                showSection('timeline');
+            }, 800);
+        });
+    }
+}
+
+// Scratch to reveal functionality
+function initScratchToReveal(container) {
+    const overlay = container.querySelector('.scratch-overlay');
+    let isRevealing = false;
+    let revealPercentage = 0;
+    let touchX, touchY;
+    
+    // Mouse events
+    container.addEventListener('mousedown', startReveal);
+    document.addEventListener('mousemove', continueReveal);
+    document.addEventListener('mouseup', stopReveal);
+    
+    // Touch events for mobile
+    container.addEventListener('touchstart', startTouchReveal);
+    document.addEventListener('touchmove', continueTouchReveal);
+    document.addEventListener('touchend', stopReveal);
+    
+    function startReveal(e) {
+        e.preventDefault();
+        isRevealing = true;
+        revealAt(e.offsetX, e.offsetY);
+    }
+    
+    function startTouchReveal(e) {
+        e.preventDefault();
+        isRevealing = true;
+        const touch = e.touches[0];
+        const rect = container.getBoundingClientRect();
+        touchX = touch.clientX - rect.left;
+        touchY = touch.clientY - rect.top;
+        revealAt(touchX, touchY);
+    }
+    
+    function continueReveal(e) {
+        if (!isRevealing) return;
+        e.preventDefault();
+        revealAt(e.offsetX, e.offsetY);
+    }
+    
+    function continueTouchReveal(e) {
+        if (!isRevealing) return;
+        e.preventDefault();
+        const touch = e.touches[0];
+        const rect = container.getBoundingClientRect();
+        touchX = touch.clientX - rect.left;
+        touchY = touch.clientY - rect.top;
+        revealAt(touchX, touchY);
+    }
+    
+    function stopReveal() {
+        isRevealing = false;
+    }
+    
+    function revealAt(x, y) {
+        // Create a radial gradient to reveal the image
+        const size = 40; // Size of the reveal area
+        
+        // Update the reveal percentage
+        revealPercentage += 3;
+        if (revealPercentage >= 100) {
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 300);
+        } else {
+            // Create multiple reveal spots for a scratchy effect
+            const gradient = `radial-gradient(circle ${size}px at ${x}px ${y}px, transparent 0%, transparent 100%)`;
+            
+            // Add the new gradient to existing ones (simulating scratches)
+            const currentBackground = overlay.style.backgroundImage;
+            if (currentBackground && !currentBackground.includes('repeating-linear-gradient')) {
+                overlay.style.backgroundImage = `${currentBackground}, ${gradient}`;
+            } else {
+                overlay.style.backgroundImage = gradient;
+            }
+        }
+    }
+}
+
+// Quiz Initialization
+function initQuiz() {
+    const quizContainer = document.querySelector('.quiz-container');
+    const quizQuestions = document.querySelectorAll('.quiz-question');
+    const quizOptions = document.querySelectorAll('.quiz-option');
+    const quizContinueButton = document.getElementById('quiz-continue');
+    const quizResultsElement = document.querySelector('.quiz-results');
+    const quizScoreElement = document.getElementById('quiz-score');
+    const quizMessageElement = document.getElementById('quiz-message');
+    
+    let currentQuestion = 0;
+    let score = 0;
+    const totalQuestions = quizQuestions.length;
+
+    // Add event listeners to all quiz options
+    quizOptions.forEach(option => {
+        option.addEventListener('click', handleOptionClick);
+    });
+
+    // Initial display of the first question
+    showQuestion(0);
+
+    // Function to handle option click
+    function handleOptionClick(e) {
+        const selectedOption = e.target;
+        const currentQuestionElement = quizQuestions[currentQuestion];
+        const options = currentQuestionElement.querySelectorAll('.quiz-option');
+        const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+        const correctFeedback = currentQuestionElement.querySelector('.quiz-feedback.correct');
+        const incorrectFeedback = currentQuestionElement.querySelector('.quiz-feedback.incorrect');
+        
+        // Disable all options for this question
+        options.forEach(opt => {
+            opt.disabled = true;
+            opt.classList.add('disabled');
+        });
+        
+        // Show correct/incorrect styling
+        if (isCorrect) {
+            selectedOption.classList.add('correct');
+            correctFeedback.style.display = 'block';
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            incorrectFeedback.style.display = 'block';
+            
+            // Also highlight the correct answer
+            options.forEach(opt => {
+                if (opt.getAttribute('data-correct') === 'true') {
+                    opt.classList.add('correct');
+                }
+            });
+        }
+        
+        // Move to next question after a delay
+        setTimeout(() => {
+            currentQuestion++;
+            
+            if (currentQuestion < totalQuestions) {
+                showQuestion(currentQuestion);
+            } else {
+                showResults();
+            }
+        }, 1500);
+    }
+
+    // Function to show a specific question
+    function showQuestion(index) {
+        // Hide all questions
+        quizQuestions.forEach(question => {
+            question.style.display = 'none';
+        });
+        
+        // Show the current question
+        quizQuestions[index].style.display = 'block';
+        
+        // Reset feedback displays
+        const correctFeedback = quizQuestions[index].querySelector('.quiz-feedback.correct');
+        const incorrectFeedback = quizQuestions[index].querySelector('.quiz-feedback.incorrect');
+        
+        correctFeedback.style.display = 'none';
+        incorrectFeedback.style.display = 'none';
+        
+        // Enable options for this question
+        const options = quizQuestions[index].querySelectorAll('.quiz-option');
+        options.forEach(opt => {
+            opt.disabled = false;
+            opt.classList.remove('disabled', 'correct', 'incorrect');
+        });
+    }
+
+    // Function to show final results
+    function showResults() {
+        // Hide all questions
+        quizQuestions.forEach(question => {
+            question.style.display = 'none';
+        });
+        
+        // Update score display
+        quizScoreElement.textContent = score;
+        
+        // Add the special message first that appears regardless of score
+        const specialMessage = document.createElement('p');
+        specialMessage.className = 'quiz-special-message';
+        specialMessage.innerHTML = "Huh... what do you think? This quiz will decide whether you love me or not?<br>No way! I already know that you do! ❤️ And that's all that matters! 😘";
+        quizMessageElement.parentNode.insertBefore(specialMessage, quizMessageElement);
+        
+        // Show appropriate message based on score
+        if (score === totalQuestions) {
+            quizMessageElement.textContent = "Perfect score! You know me so well! I'm truly touched by how much attention you pay to the details of my life. ❤️";
+        } else if (score >= Math.floor(totalQuestions * 0.8)) {
+            quizMessageElement.textContent = "Amazing! You really do know me well! I feel so loved and seen by you! 💕";
+        } else if (score >= Math.floor(totalQuestions * 0.6)) {
+            quizMessageElement.textContent = "Not bad! You know quite a bit about me, but there's still more to learn. I'm looking forward to sharing more with you! 😊";
+        } else if (score >= Math.floor(totalQuestions * 0.4)) {
+            quizMessageElement.textContent = "Hmm, looks like we have some work to do! But that's okay, we have plenty of time to get to know each other better! 😉";
+        } else {
+            quizMessageElement.textContent = "Oh dear! Maybe you need to pay more attention to me! But I still love you anyway! 😂";
+        }
+        
+        // Show results section and confetti
+        quizResultsElement.style.display = 'block';
+        createConfetti();
+        
+        // Show continue button
+        quizContinueButton.style.display = 'block';
+        
+        // Add event listener to the continue button if it doesn't already have one
+        if (!quizContinueButton.hasEventListener) {
+            quizContinueButton.hasEventListener = true;
+            quizContinueButton.addEventListener('click', function() {
+                document.getElementById('gift').scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    showSection('gift');
+                }, 800);
+            });
+        }
+    }
+    
+    // Function to create confetti effect
+    function createConfetti() {
+        const confettiContainer = document.querySelector('.confetti');
+        confettiContainer.innerHTML = ''; // Clear any existing confetti
+        
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti-piece');
+            confetti.style.backgroundColor = getRandomColor();
+            confetti.style.left = `${Math.random() * 100}%`;
+            confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            confetti.style.animationDelay = `${Math.random() * 2}s`;
+            confetti.style.opacity = Math.random() * 0.7 + 0.3;
+            confettiContainer.appendChild(confetti);
+        }
+    }
+    
+    // Helper function to get random confetti colors
+    function getRandomColor() {
+        const colors = ['#ff3366', '#36ff66', '#6636ff', '#f9ff36', '#ff36f9', '#36f9ff'];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+}
+
+// Event listeners for navigation buttons
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all sections
+    const sections = document.querySelectorAll('.section');
+
+    // Initialize current section index
+    let currentSectionIndex = 0;
+
+    // Show first section on load
+    showSection(currentSectionIndex);
+    checkBirthdayAndPassword();
+
+    // Initialize event listeners
+    document.getElementById('start-button').addEventListener('click', function() {
+        showSection(1); // Show message section
+    });
+
+    // Message continue button - direct implementation
+    document.querySelector('#message-continue').onclick = function() {
+        console.log('Message continue button clicked - direct implementation');
+        showSection(2); // Show gallery section
+    };
+
+    // Gallery continue button
+    const galleryContinueBtn = document.getElementById('gallery-continue');
+    if (galleryContinueBtn) {
+        galleryContinueBtn.addEventListener('click', function() {
+            console.log('Gallery continue button clicked');
+            showSection(3); // Show timeline section
+        });
+    } else {
+        console.error('Gallery continue button not found in the DOM');
+    }
+
+    // Timeline continue button
+    const timelineContinueBtn = document.getElementById('timeline-continue');
+    if (timelineContinueBtn) {
+        timelineContinueBtn.addEventListener('click', function() {
+            console.log('Timeline continue button clicked');
+            showSection(4); // Show memory game section
+        });
+    } else {
+        console.error('Timeline continue button not found in the DOM');
+    }
+
+    // Memory continue button
+    const memoryContinueBtn = document.getElementById('memory-continue');
+    if (memoryContinueBtn) {
+        memoryContinueBtn.addEventListener('click', function() {
+            console.log('Memory continue button clicked');
+            showSection(5); // Show video section
+        });
+    } else {
+        console.error('Memory continue button not found in the DOM');
+    }
+
+    // Video continue button
+    const videoContinueBtn = document.getElementById('video-continue');
+    if (videoContinueBtn) {
+        videoContinueBtn.addEventListener('click', function() {
+            console.log('Video continue button clicked');
+            showSection(6); // Show quiz section
+        });
+    } else {
+        console.error('Video continue button not found in the DOM');
+    }
+
+    // Quiz continue button
+    const quizContinueBtn = document.getElementById('quiz-continue');
+    if (quizContinueBtn) {
+        quizContinueBtn.addEventListener('click', function() {
+            console.log('Quiz continue button clicked');
+            showSection(7); // Show gift section
+        });
+    } else {
+        console.error('Quiz continue button not found in the DOM');
+    }
+
+    // Final button
+    const finalButton = document.getElementById('final-button');
+    if (finalButton) {
+        finalButton.addEventListener('click', function() {
+            console.log('Final button clicked');
+            showSection(8); // Show final wishes section
+        });
+    } else {
+        console.error('Final button not found in the DOM');
+    }
+
+    // Restart button
+    const restartButton = document.getElementById('restart-button');
+    if (restartButton) {
+        restartButton.addEventListener('click', function() {
+            console.log('Restart button clicked');
+            showSection(0); // Return to start
+        });
+    } else {
+        console.error('Restart button not found in the DOM');
+    }
+
+    // Gift box interaction
+    const giftBox = document.querySelector('.gift-box');
+    const hiddenMessage = document.querySelector('.hidden-message');
+    
+    if (giftBox && hiddenMessage) {
+        giftBox.addEventListener('click', function() {
+            // Animation for opening gift
+            giftBox.classList.add('open');
+            
+            // Show message after animation completes
+            setTimeout(function() {
+                hiddenMessage.style.display = 'block';
+                const finalButton = document.getElementById('final-button');
+                if (finalButton) {
+                    finalButton.style.display = 'block';
+                }
+                giftBox.style.display = 'none';
+            }, 1000);
+        });
+    }
+    
+    // Audio controls
+    let isMuted = true; // Start muted
+    const audioButton = document.getElementById('toggle-audio');
+    const backgroundMusic = document.getElementById('background-music');
+    
+    if (audioButton && backgroundMusic) {
+        audioButton.addEventListener('click', () => {
+            isMuted = !isMuted;
+            
+            if (isMuted) {
+                backgroundMusic.pause();
+                audioButton.classList.add('muted');
+                audioButton.textContent = '🔇';
+            } else {
+                backgroundMusic.play().catch(e => console.log('Autoplay prevented by browser'));
+                audioButton.classList.remove('muted');
+                audioButton.textContent = '🎵';
+            }
+        });
+    }
+    
+    // Add floating hearts styles dynamically
+    const style = document.createElement('style');
+    style.textContent = `
+        .heart-float {
+            position: absolute;
+            color: #ff3366;
+            animation: float-heart-random 5s linear infinite;
+            top: -20px;
+        }
+        
+        @keyframes float-heart-random {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(500px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    `;
+    
+    document.head.appendChild(style);
+});
+

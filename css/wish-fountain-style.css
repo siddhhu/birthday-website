@@ -1,0 +1,379 @@
+/* Wish Fountain Styles */
+.fountain-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    margin: 20px auto;
+    perspective: 800px;
+    overflow: visible;
+}
+
+.fountain {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+
+.fountain-base {
+    width: 180px;
+    height: 40px;
+    background: linear-gradient(to right, #8a8a8a, #d2d2d2, #8a8a8a);
+    border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.fountain-base::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    right: 20px;
+    height: 20px;
+    background: radial-gradient(ellipse at center, #7ec0ee, #1e90ff);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    animation: waterShimmer 3s linear infinite;
+}
+
+@keyframes waterShimmer {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+.fountain-water {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    z-index: -1;
+}
+
+.water-drop {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(126, 192, 238, 0.7);
+    border-radius: 50%;
+    bottom: 40px;
+    transform-origin: bottom center;
+    animation: waterDrop 2s infinite ease-out;
+}
+
+.water-drop:nth-child(1) { animation-delay: 0s; left: calc(50% - 5px); }
+.water-drop:nth-child(2) { animation-delay: 0.3s; left: calc(50% - 15px); }
+.water-drop:nth-child(3) { animation-delay: 0.6s; left: calc(50% + 5px); }
+.water-drop:nth-child(4) { animation-delay: 0.9s; left: calc(50% + 15px); }
+.water-drop:nth-child(5) { animation-delay: 1.2s; left: calc(50% - 25px); }
+.water-drop:nth-child(6) { animation-delay: 1.5s; left: calc(50% + 25px); }
+.water-drop:nth-child(7) { animation-delay: 1.8s; left: calc(50% - 0px); }
+
+@keyframes waterDrop {
+    0% {
+        bottom: 40px;
+        height: 0;
+        width: 6px;
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    50% {
+        height: 20px;
+        width: 10px;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        bottom: 200px;
+        height: 0;
+        width: 6px;
+        opacity: 0;
+    }
+}
+
+.coin-container {
+    position: absolute;
+    bottom: 100px;
+    left: calc(50% - 100px);
+    width: 50px;
+    height: 50px;
+    perspective: 500px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.coin {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.coin-front, .coin-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 50%;
+}
+
+.coin-front {
+    background: radial-gradient(ellipse at center, #ffd700, #b8860b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+.coin-front::after {
+    content: '₹';
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 2px #000;
+}
+
+.coin-back {
+    background: linear-gradient(45deg, #d4af37, #ffd700, #d4af37);
+    transform: rotateY(180deg);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+.coin.toss {
+    animation: coinToss 3s forwards;
+    pointer-events: none;
+}
+
+@keyframes coinToss {
+    0% {
+        transform: translateY(0) rotateY(0) scale(1);
+    }
+    10% {
+        transform: translateY(-150px) rotateY(180deg) scale(1);
+    }
+    40% {
+        transform: translateY(-100px) rotateY(720deg) scale(0.9);
+    }
+    60% {
+        transform: translateY(-50px) rotateY(1080deg) scale(0.7);
+    }
+    75% {
+        transform: translateY(80px) rotateY(1260deg) scale(0.5);
+    }
+    100% {
+        transform: translateY(150px) rotateY(1440deg) scale(0.1);
+    }
+}
+
+.fountain-instruction {
+    margin: 20px 0;
+    color: #666;
+    font-style: italic;
+    animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+.wish-message {
+    padding: 15px;
+    margin: 25px auto;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s;
+    opacity: 0;
+    transform: translateY(20px);
+    text-align: center;
+}
+
+.wish-message.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.wish-english, .wish-hindi {
+    margin-bottom: 15px;
+}
+
+.wish-hindi {
+    margin-top: 20px;
+}
+
+.fade-in-text {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: textFadeIn 0.8s forwards;
+}
+
+.wish-english .fade-in-text:nth-child(1) { animation-delay: 1.0s; }
+.wish-english .fade-in-text:nth-child(2) { animation-delay: 1.3s; }
+.wish-english .fade-in-text:nth-child(3) { animation-delay: 1.6s; }
+
+.wish-hindi .fade-in-text:nth-child(1) { animation-delay: 1.9s; }
+.wish-hindi .fade-in-text:nth-child(2) { animation-delay: 2.2s; }
+.wish-hindi .fade-in-text:nth-child(3) { animation-delay: 2.5s; }
+
+@keyframes textFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fountain-hearts {
+    height: 50px;
+    position: relative;
+    margin: 20px 0;
+}
+
+.fountain-hearts span {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0;
+    left: 50%;
+    animation: fountainHeart 4s infinite;
+}
+
+@keyframes fountainHeart {
+    0% { 
+        transform: translate(-50%, 0) scale(0); 
+        opacity: 0; 
+    }
+    15% { 
+        transform: translate(-50%, -20px) scale(1.2); 
+        opacity: 1; 
+    }
+    30% { 
+        transform: translate(-40%, -40px) scale(1); 
+        opacity: 1; 
+    }
+    45% { 
+        transform: translate(-30%, -60px) scale(0.8); 
+        opacity: 0.8; 
+    }
+    60% { 
+        transform: translate(-20%, -80px) scale(0.6); 
+        opacity: 0.6; 
+    }
+    100% { 
+        transform: translate(0%, -100px) scale(0.2); 
+        opacity: 0; 
+    }
+}
+
+.fountain-hearts span:nth-child(1) { animation-delay: 0s; }
+.fountain-hearts span:nth-child(2) { animation-delay: 0.8s; }
+.fountain-hearts span:nth-child(3) { animation-delay: 1.6s; }
+.fountain-hearts span:nth-child(4) { animation-delay: 2.4s; }
+.fountain-hearts span:nth-child(5) { animation-delay: 3.2s; }
+
+.hidden {
+    display: none;
+}
+
+/* Ripple effect for the fountain */
+.fountain-base::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: ripple 3s linear infinite;
+}
+
+@keyframes ripple {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0.8;
+    }
+    100% {
+        width: 150px;
+        height: 20px;
+        opacity: 0;
+    }
+}
+
+#wish-continue {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s;
+    pointer-events: none;
+}
+
+#wish-continue.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Water ripple effect */
+.water-ripple {
+    position: absolute;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: rippleEffect 2s linear;
+    pointer-events: none;
+}
+
+@keyframes rippleEffect {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Water splash effect */
+.water-splash {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    pointer-events: none;
+}
+
+.splash-droplet {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: rgba(126, 192, 238, 0.8);
+    border-radius: 50%;
+    bottom: 0;
+    transform-origin: center bottom;
+    animation: splashUp 1s ease-out forwards;
+}
+
+@keyframes splashUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-80px) scale(0);
+        opacity: 0;
+    }
+}

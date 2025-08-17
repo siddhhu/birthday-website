@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cake-style.css">
+    <link rel="stylesheet" href="css/final-page.css">
+    <link rel="stylesheet" href="css/journey-style.css">
+    <link rel="stylesheet" href="css/wish-fountain-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Preloader -->
+        <div class="preloader">
+            <div class="heart"></div>
+            <p>Loading something special...</p>
+        </div>
+        
+        <!-- Password Protection Layer -->
+        <div id="password-protection" class="password-protection">
+            <div class="lock-screen">
+                <div class="lock-content">
+                    <div class="lock-icon">
+                        <i class="lock-shape"></i>
+                    </div>
+                    <h2>Special Content Locked</h2>
+                    <p>This special birthday surprise will unlock automatically on August 18th.</p>
+                    <p>Or enter the secret password:</p>
+                    <div class="password-form">
+                        <input type="password" id="password-input" placeholder="Enter password">
+                        <button id="password-submit">Unlock</button>
+                    </div>
+                    <p id="password-hint">Hint: Our anniversary date (DDMMYYYY) or your birth month + day (MMDD)</p>
+                    <p id="password-error" style="color: #ff3366; display: none;">Incorrect password, try again!</p>
+                    <div id="countdown-lock">
+                        <p>Unlocks automatically in:</p>
+                        <div class="lock-countdown">
+                            <div class="countdown-item">
+                                <span id="lock-days">00</span>
+                                <span class="label">Days</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span id="lock-hours">00</span>
+                                <span class="label">Hours</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span id="lock-minutes">00</span>
+                                <span class="label">Minutes</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span id="lock-seconds">00</span>
+                                <span class="label">Seconds</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Landing section with countdown -->
+        <section id="landing" class="section active">
+            <div class="stars"></div>
+            <div class="content">
+                <h1 class="animate__animated animate__fadeInDown">Happy Birthday!</h1>
+                <div class="countdown">
+                    <div id="countdown-display">
+                        <div class="countdown-item">
+                            <span id="days">00</span>
+                            <span class="label">Days</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="hours">00</span>
+                            <span class="label">Hours</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="minutes">00</span>
+                            <span class="label">Minutes</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="seconds">00</span>
+                            <span class="label">Seconds</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="birthday-message" style="display:none;" class="animate__animated animate__zoomIn">
+                    <h2>Today's Your Special Day!</h2>
+                    <button class="cta-button" id="start-journey">Start Your Birthday Journey</button>
+                </div>
+                <button class="cta-button" id="continue-button">Continue</button>
+            </div>
+        </section>
+
+        <!-- Message Section -->
+        <section id="message" class="section">
+            <div class="content">
+                <div class="message-card">
+                    <h2>To My Wonderful Girlfriend</h2>
+                    <p>On your special day, I wanted to create something as unique and beautiful as you are.</p>
+                    <p>You bring so much joy and happiness into my life every single day.</p>
+                    <p>I cherish every moment we spend together and look forward to celebrating many more birthdays with you.</p>
+                    <p class="hindi-message">
+                        <span class="heart-icon">❤️</span> 
+                        ✨ तुम्हारे बिना मेरी कहानी अधूरी है, ✨<br>
+                        ✨ तुम्हारे साथ मेरी ज़िंदगी पूरी है! ✨<br><br>
+                        🎉 जन्मदिन मुबारक मेरी प्यारी! 🎉<br><br>
+                        🌟 तुम इतनी प्यारी हो कि चांद भी तुमसे जलता है, 🌟<br>
+                        🌞 और सूरज भी तुम्हारे सामने ढलता है! 🌞<br><br>
+                        <span class="heart-icon">❤️</span>
+                    </p>
+                    <p class="message-translation">(Without you my story is incomplete, with you my life is complete! Happy birthday my love! You are so beautiful that the moon is jealous of you, and the sun sets before your radiance!)</p>
+                    <p>Happy Birthday, my love!</p>
+                    <button class="cta-button" id="message-continue">Continue</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Message Section (Removed duplicate) -->
+
+        <!-- Memory Gallery -->
+        <section id="gallery" class="section">
+            <div class="content">
+                <h2>Our Memories Together</h2>
+                <div class="gallery-container">
+                    <!-- Row 1 -->
+                    <div class="photo-frame">
+                        <div class="photo scratch-item">
+                            <img src="images/gallery1.jpg" alt="Our first date" class="card-img">
+                            <canvas class="scratch-overlay"></canvas>
+                        </div>
+                        <div class="caption">Our First Date</div>
+                    </div>
+                    <div class="photo-frame">
+                        <div class="photo scratch-item">
+                            <img src="images/gallery2.jpg" alt="Amazing trip" class="card-img">
+                            <canvas class="scratch-overlay"></canvas>
+                        </div>
+                        <div class="caption">That Amazing Trip</div>
+                    </div>
+                    <div class="photo-frame">
+                        <div class="photo scratch-item">
+                            <img src="images/gallery3.jpg" alt="Special moment" class="card-img">
+                            <canvas class="scratch-overlay"></canvas>
+                        </div>
+                        <div class="caption">Our Favorite Memory</div>
+                    </div>
+                    <div class="photo-frame">
+                        <div class="photo placeholder scratch-item">
+                            <p>Add Photo 4</p>
+                            <canvas class="scratch-overlay"></canvas>
+                        </div>
+                        <div class="caption">Just Because You're Beautiful</div>
+                    </div>
+                    
+                    <!-- Row 2 - Additional Photos -->
+                    <div class="photo-frame">
+                        <div class="photo placeholder">
+                            <p>Add Photo 5</p>
+                        </div>
+                        <div class="caption">Special Moment</div>
+                    </div>
+                    <div class="photo-frame">
+                        <div class="photo placeholder">
+                            <p>Add Photo 6</p>
+                        </div>
+                        <div class="caption">Adventure Together</div>
+                    </div>
+                    <div class="photo-frame">
+                        <div class="photo placeholder">
+                            <p>Add Photo 7</p>
+                        </div>
+                        <div class="caption">Laughing Together</div>
+                    </div>
+                    <div class="photo-frame">
+                        <div class="photo placeholder">
+                            <p>Add Photo 8</p>
+                        </div>
+                        <div class="caption">Quiet Moments</div>
+                    </div>
+                </div>
+                <div class="gallery-navigation">
+                    <p class="gallery-info">These are just placeholders - add your own photos and captions!</p>
+                    <button class="cta-button" id="gallery-continue">Play Memory Game →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline" class="section">
+            <div class="content timeline-content-wrapper">
+                <h2>Our Journey Together</h2>
+                <div class="timeline-navigation">
+                    <button id="timeline-prev" class="timeline-nav-btn" aria-label="Previous">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                        </svg>
+                    </button>
+                    <div class="timeline-dots">
+                        <!-- Dots will be added by JavaScript -->
+                    </div>
+                    <button id="timeline-next" class="timeline-nav-btn" aria-label="Next">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline">
+                        <!-- Timeline items will be added by JavaScript -->
+                    </div>
+                </div>
+                <div class="timeline-progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <div class="timeline-continue">
+                    <button class="cta-button" id="timeline-continue">Continue to Memory Game</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Memory Game Section -->
+        <section id="memory-game" class="section">
+            <div class="content">
+                <button class="back-button" onclick="showSection('gallery')">← Back to Gallery</button>
+                <h2>Test Your Memory</h2>
+                <p class="game-intro">Find all the matching pairs of our special moments together</p>
+                
+                <div class="memory-game-container">
+                    <div class="game-stats">
+                        <div class="stat-item">Moves: <span id="move-count">0</span></div>
+                        <div class="stat-item">Matches: <span id="match-count">0</span></div>
+                        <button id="reset-game" class="reset-button">Reset Game</button>
+                    </div>
+                    
+                    <div class="memory-cards">
+                        <!-- Cards will be generated via JavaScript -->
+                    </div>
+                    
+                    <div class="game-message" id="game-complete" style="display: none;">
+                        <h3>You Did It!</h3>
+                        <p>You've matched all our special moments!</p>
+                        <p class="special-note">Just like how we're a perfect match! ❤️</p>
+                        <button class="cta-button" onclick="showSection('videos')">Watch Our Memories →</button>
+                    </div>
+                    
+                    <div class="game-navigation">
+                        <button class="cta-button" id="skip-to-videos">Continue to Videos →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Videos Section -->
+        <section id="videos" class="section">
+            <div class="content">
+                <button class="back-button" onclick="showSection('memory-game')">← Back to Memory Game</button>
+                <h2>Our Special Moments</h2>
+                <p class="game-intro">Relive our beautiful memories together</p>
+                
+                <div class="video-gallery">
+                    <div class="video-container">
+                        <video controls>
+                            <source src="videos/memory1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <p>Our First Date</p>
+                    </div>
+
+                    <div class="video-container">
+                        <video controls>
+                            <source src="videos/memory2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <p>Trip to Mountains</p>
+                    </div>
+
+                    <div class="video-container">
+                        <video controls>
+                            <source src="videos/memory3.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <p>Last Birthday Celebration</p>
+                    </div>
+                </div>
+                
+                <button class="cta-button" id="videos-continue">Continue to Our Journey</button>
+            </div>
+        </section>
+
+        <!-- Our Journey Section -->
+        <section id="our-journey" class="section">
+            <div class="content">
+                <button class="back-button" onclick="showSection('videos')">← Back to Videos</button>
+                <h2>Our Journey Together</h2>
+                <p class="journey-intro">The Story of Our Consistent Love ❤️</p>
+                
+                <div class="journey-container">
+                    <div class="journey-timeline">
+                        <div class="journey-item" data-year="Class 7">
+                            <div class="journey-dot"></div>
+                            <div class="journey-content">
+                                <h3>The First Sight</h3>
+                                <p>It was 7th when I saw you.. It was wonderful seeing you</p>
+                                <p class="hindi-text">पहली नज़र में ही, तुम मुझे खास लगी थी</p>
+                            </div>
+                        </div>
+                        
+                        <div class="journey-item" data-year="Class 10">
+                            <div class="journey-dot"></div>
+                            <div class="journey-content">
+                                <h3>Love Began</h3>
+                                <p>We finally met in 10th (love started)</p>
+                                <p class="hindi-text">और तब हमारी कहानी शुरू हुई</p>
+                            </div>
+                        </div>
+                        
+                        <div class="journey-item" data-year="Class 11">
+                            <div class="journey-dot"></div>
+                            <div class="journey-content">
+                                <h3>Growing Together</h3>
+                                <p>Then in 11th you were with me</p>
+                                <p class="hindi-text">हर कदम पर तुम मेरे साथ थी</p>
+                            </div>
+                        </div>
+                        
+                        <div class="journey-item" data-year="Class 12">
+                            <div class="journey-dot"></div>
+                            <div class="journey-content">
+                                <h3>Stronger Everyday</h3>
+                                <p>In 12th you were with me</p>
+                                <p class="hindi-text">जिंदगी के हर मोड़ पर, तुम्हारा हाथ मेरे हाथ में</p>
+                            </div>
+                        </div>
+                        
+                        <div class="journey-item" data-year="BTech 1">
+                            <div class="journey-dot"></div>
+                            <div class="journey-content">
+                                <h3>College Adventures</h3>
+                                <p>In BTech first year you were with me</p>
+                                <p class="hindi-text">नई राहें, नई मंज़िलें, पर साथी वही</p>
+                            </div>
+                        </div>
+                        
+                        <div class="journey-item" data-year="BTech 2">
+                            <div class="journey-dot"></div>
+                            <div class="journey-content">
+                                <h3>Dreams Together</h3>
+                                <p>In 2nd year you were with me</p>
+                                <p class="hindi-text">सपने बुनते हुए, हम साथ चलते रहे</p>
+                            </div>
+                        </div>
+                        
+                        <div class="journey-item" data-year="BTech 3">
+                            <div class="journey-dot"></div>
+                            <div class="journey-content">
+                                <h3>Challenges & Growth</h3>
+                                <p>In 3rd year you were with me</p>
+                                <p class="hindi-text">मुश्किलों में भी, हमारा प्यार बढ़ता गया</p>
+                            </div>
+                        </div>
+                        
+                        <div class="journey-item" data-year="BTech 4">
+                            <div class="journey-dot"></div>
+                            <div class="journey-content">
+                                <h3>Graduation Together</h3>
+                                <p>In 4th year you were with me</p>
+                                <p class="hindi-text">हर सफलता का जश्न, हमने साथ मनाया</p>
+                            </div>
+                        </div>
+                        
+                        <div class="journey-item" data-year="2022">
+                            <div class="journey-dot"></div>
+                            <div class="journey-content">
+                                <h3>Career Beginnings</h3>
+                                <p>In my first job in 2022 you were with me</p>
+                                <p class="hindi-text">नई शुरुआत, नई उम्मीदें, पर तुम्हारा साथ वही</p>
+                            </div>
+                        </div>
+                        
+                        <div class="journey-item" data-year="2025">
+                            <div class="journey-dot"></div>
+                            <div class="journey-content">
+                                <h3>Still Growing Strong</h3>
+                                <p>In 2025 in second job you are with me..</p>
+                                <p class="hindi-text">और आज भी, तुम मेरे साथ हो</p>
+                            </div>
+                        </div>
+                        
+                        <div class="journey-item highlight" data-year="Forever">
+                            <div class="journey-dot heart-dot"></div>
+                            <div class="journey-content">
+                                <h3>Our Beautiful Story</h3>
+                                <p>What does it show? You were consistent for 9 years and will be till last breath</p>
+                                <p class="hindi-text">तुम्हारी वफ़ादारी ने मेरी ज़िंदगी बदल दी है</p>
+                                <p>तुम्हारे साथ हर पल, हर दिन, मेरी ज़िंदगी का सबसे खूबसूरत सफ़र है</p>
+                                <p class="highlight-text">9 years of love, and a lifetime to go ❤️</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="journey-message">
+                        <p class="highlight-quote">"A journey of a thousand miles begins with a single step, but the beauty of our journey is that we took every step together."</p>
+                        <p class="hindi-quote">"तेरे साथ हर सफर, एक यादगार बन जाता है"</p>
+                    </div>
+                    
+                    <div class="journey-controls">
+                        <button id="journey-prev" class="journey-nav-btn">Previous</button>
+                        <button id="journey-next" class="journey-nav-btn">Next</button>
+                    </div>
+                </div>
+                
+                <div class="journey-continue">
+                    <button class="cta-button" id="journey-continue">Continue to Quiz</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Quiz Section -->
+        <section id="quiz" class="section">
+            <div class="content">
+                <h2>How Well Do You Know Me?</h2>
+                <p class="quiz-intro">Let's see how much you know about me! 😉</p>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question" data-question="1">
+                        <div class="quiz-warning">
+                            <p>Answering this question will tell us whether you love me or not...</p>
+                        </div>
+                        <h3>Question 1:</h3>
+                        <p>What is my favorite food?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false">Pizza</button>
+                            <button class="quiz-option" data-correct="true">Biryani</button>
+                            <button class="quiz-option" data-correct="false">Chocolate</button>
+                            <button class="quiz-option" data-correct="false">Sushi</button>
+                        </div>
+                        <div class="quiz-feedback correct" style="display:none">
+                            <p>Correct! You know me so well! ❤️</p>
+                        </div>
+                        <div class="quiz-feedback incorrect" style="display:none">
+                            <p>Wrong! How could you forget?! 😜</p>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question" data-question="2" style="display:none">
+                        <div class="quiz-warning">
+                            <p>Answering this question will tell us whether you love me or not...</p>
+                        </div>
+                        <h3>Question 2:</h3>
+                        <p>Where did we have our first date?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false">Movie theater</button>
+                            <button class="quiz-option" data-correct="false">Restaurant</button>
+                            <button class="quiz-option" data-correct="true">Beach</button>
+                            <button class="quiz-option" data-correct="false">Park</button>
+                        </div>
+                        <div class="quiz-feedback correct" style="display:none">
+                            <p>Impressive! Your memory is amazing! 🥰</p>
+                        </div>
+                        <div class="quiz-feedback incorrect" style="display:none">
+                            <p>Nope! I'm starting to question our relationship... 😂</p>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question" data-question="3" style="display:none">
+                        <div class="quiz-warning">
+                            <p>Answering this question will tell us whether you love me or not...</p>
+                        </div>
+                        <h3>Question 3:</h3>
+                        <p>What's my favorite way to spend a weekend?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="true">Hiking together</button>
+                            <button class="quiz-option" data-correct="false">Shopping all day</button>
+                            <button class="quiz-option" data-correct="false">Watching movies</button>
+                            <button class="quiz-option" data-correct="false">Sleeping in</button>
+                        </div>
+                        <div class="quiz-feedback correct" style="display:none">
+                            <p>You're doing great! 🌟</p>
+                        </div>
+                        <div class="quiz-feedback incorrect" style="display:none">
+                            <p>Really? After all this time? 🙄 (Just kidding!)</p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" data-question="4" style="display:none">
+                        <div class="quiz-warning">
+                            <p>Answering this question will tell us whether you love me or not...</p>
+                        </div>
+                        <h3>Question 4:</h3>
+                        <p>What's my favorite color?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false">Blue</button>
+                            <button class="quiz-option" data-correct="false">Green</button>
+                            <button class="quiz-option" data-correct="true">Purple</button>
+                            <button class="quiz-option" data-correct="false">Yellow</button>
+                        </div>
+                        <div class="quiz-feedback correct" style="display:none">
+                            <p>Perfect! You're paying attention! 💕</p>
+                        </div>
+                        <div class="quiz-feedback incorrect" style="display:none">
+                            <p>Hmm, I might need to make it more obvious... 🙃</p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" data-question="5" style="display:none">
+                        <div class="quiz-warning">
+                            <p>Answering this question will tell us whether you love me or not...</p>
+                        </div>
+                        <h3>Question 5:</h3>
+                        <p>What's your favorite nickname for me?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false">Sweetheart</button>
+                            <button class="quiz-option" data-correct="true">Siddy</button>
+                            <button class="quiz-option" data-correct="false">Cutie</button>
+                            <button class="quiz-option" data-correct="false">Baby</button>
+                        </div>
+                        <div class="quiz-feedback correct" style="display:none">
+                            <p>Aww, you remembered! 😊</p>
+                        </div>
+                        <div class="quiz-feedback incorrect" style="display:none">
+                            <p>Do you even listen when we talk? 😅</p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" data-question="6" style="display:none">
+                        <div class="quiz-warning">
+                            <p>Answering this question will tell us whether you love me or not...</p>
+                        </div>
+                        <h3>Question 6:</h3>
+                        <p>What's the song that always makes me dance?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="true">Dancing Queen</button>
+                            <button class="quiz-option" data-correct="false">Despacito</button>
+                            <button class="quiz-option" data-correct="false">Shape of You</button>
+                            <button class="quiz-option" data-correct="false">Uptown Funk</button>
+                        </div>
+                        <div class="quiz-feedback correct" style="display:none">
+                            <p>Yes! Let's dance to it later! 💃</p>
+                        </div>
+                        <div class="quiz-feedback incorrect" style="display:none">
+                            <p>Incorrect! We need to have a dance party ASAP! 🕺</p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" data-question="7" style="display:none">
+                        <div class="quiz-warning">
+                            <p>Answering this question will tell us whether you love me or not...</p>
+                        </div>
+                        <h3>Question 7:</h3>
+                        <p>What's my go-to comfort food when I'm stressed?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false">Ice Cream</button>
+                            <button class="quiz-option" data-correct="false">Chocolate</button>
+                            <button class="quiz-option" data-correct="true">Samosas</button>
+                            <button class="quiz-option" data-correct="false">French Fries</button>
+                        </div>
+                        <div class="quiz-feedback correct" style="display:none">
+                            <p>You know me too well! Maybe bring me some later? 😉</p>
+                        </div>
+                        <div class="quiz-feedback incorrect" style="display:none">
+                            <p>Wrong! Pay more attention next time I'm stress eating! 😂</p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" data-question="8" style="display:none">
+                        <div class="quiz-warning">
+                            <p>Answering this question will tell us whether you love me or not...</p>
+                        </div>
+                        <h3>Question 8:</h3>
+                        <p>What's my dream vacation destination?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false">Paris</button>
+                            <button class="quiz-option" data-correct="false">Bali</button>
+                            <button class="quiz-option" data-correct="true">Santorini</button>
+                            <button class="quiz-option" data-correct="false">New York</button>
+                        </div>
+                        <div class="quiz-feedback correct" style="display:none">
+                            <p>Yes! When are we going? 🌴✈️</p>
+                        </div>
+                        <div class="quiz-feedback incorrect" style="display:none">
+                            <p>Nope! Guess we need to talk about vacation plans more often! 🏝️</p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" data-question="9" style="display:none">
+                        <div class="quiz-warning">
+                            <p>Answering this question will tell us whether you love me or not...</p>
+                        </div>
+                        <h3>Question 9:</h3>
+                        <p>What pet would I most like to have?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false">Cat</button>
+                            <button class="quiz-option" data-correct="true">Dog</button>
+                            <button class="quiz-option" data-correct="false">Fish</button>
+                            <button class="quiz-option" data-correct="false">Hamster</button>
+                        </div>
+                        <div class="quiz-feedback correct" style="display:none">
+                            <p>Yes! Are you getting me one? 🥺</p>
+                        </div>
+                        <div class="quiz-feedback incorrect" style="display:none">
+                            <p>Wrong! We've talked about this so many times! 🐾</p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" data-question="10" style="display:none">
+                        <div class="quiz-warning">
+                            <p>Answering this question will tell us whether you love me or not...</p>
+                        </div>
+                        <h3>Question 10:</h3>
+                        <p>What's the one thing I always say I want to learn?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false">Painting</button>
+                            <button class="quiz-option" data-correct="false">Cooking</button>
+                            <button class="quiz-option" data-correct="false">Singing</button>
+                            <button class="quiz-option" data-correct="true">Playing the guitar</button>
+                        </div>
+                        <div class="quiz-feedback correct" style="display:none">
+                            <p>You're amazing! Maybe we can learn together? ❤️</p>
+                        </div>
+                        <div class="quiz-feedback incorrect" style="display:none">
+                            <p>Incorrect! I talk about this all the time! 🤔</p>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-results" style="display:none">
+                        <h3>Your Score: <span id="quiz-score">0</span>/10</h3>
+                        <p id="quiz-message"></p>
+                        <div class="quiz-celebration">
+                            <div class="confetti"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="cta-button" id="quiz-continue" style="display:none">Continue to Virtual Cake</button>
+            </div>
+        </section>
+
+        <!-- Virtual Cake Section -->
+        <section id="cake" class="section cake-section">
+            <div class="content">
+                <h2>Make a Wish & Blow the Candles</h2>
+                <div class="cake-container" id="cake-container">
+                    <div class="cake"></div>
+                    <div class="cake-middle"></div>
+                    <div class="cake-top"></div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                </div>
+                <div class="blow-instruction">Blow into your microphone to blow out the candles!</div>
+                <div id="cake-message" class="cake-message">Your wish has been made! May it come true this year! 🎂✨</div>
+                
+                <button id="manual-blow" class="cta-button">Can't blow? Click here!</button>
+                
+                <div class="letter-box">
+                    <div class="letter-envelope" id="letter-envelope">
+                        <div class="letter-front">Open Your Special Letter ❤️</div>
+                        <div class="letter-back">
+                            <div class="letter-content">
+                                <p class="letter-fade">Dearest शिवानी,</p>
+                                <p class="letter-fade">Another year of your beautiful life has passed, and I'm so thankful to be sharing this special day with you. Your smile brightens my darkest days, your laugh is my favorite melody, and your heart is the most precious gift I've ever received.</p>
+                                <p class="letter-fade hindi-text">आपका मुस्कान मेरे अंधेरे दिनों को रोशन करती है, आपकी हंसी मेरा पसंदीदा संगीत है, और आपका दिल सबसे कीमती उपहार है जो मुझे कभी मिला है।</p>
+                                <p class="letter-fade">Today, I celebrate not just your birthday, but everything that makes you, YOU. Your kindness, your strength, your passion, and even those little quirks that make me fall in love with you more each day.</p>
+                                <p class="letter-fade hindi-text">आज मैं सिर्फ आपके जन्मदिन का नहीं, बल्कि हर उस चीज का जश्न मनाता हूं जो आपको आप बनाती है। आपकी दयालुता, आपकी ताकत, आपका जुनून, और वो छोटी-छोटी आदतें जो मुझे हर दिन आपसे और ज्यादा प्यार करने पर मजबूर करती हैं।</p>
+                                <p class="letter-fade">May this year bring you all the happiness you deserve, all the success you work for, and all the love your heart can hold.</p>
+                                <p class="letter-fade hindi-text">इस साल आपको वो सारी खुशियां मिलें जिसके आप हकदार हैं, वो सारी सफलता जिसके लिए आप मेहनत करते हैं, और वो सारा प्यार जो आपका दिल समेट सके।</p>
+                                <div class="floating-letter-hearts">
+                                    <span>❤️</span><span>💕</span><span>💖</span><span>💗</span>
+                                </div>
+                                <p class="letter-fade">Happy Birthday, my love!</p>
+                                <p class="letter-fade hindi-text">जन्मदिन मुबारक हो, मेरी जान!</p>
+                                <p class="letter-fade">Forever yours,</p>
+                                <p class="letter-fade">Your Soulmate ❤️</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="cta-button" id="cake-continue">Continue to Wish Fountain</button>
+            </div>
+        </section>
+
+        <!-- Wish Fountain Section -->
+        <section id="wish-fountain" class="section">
+            <div class="content">
+                <h2>Make a Wish at the Fountain</h2>
+                <div class="fountain-container">
+                    <div class="fountain">
+                        <div class="fountain-base"></div>
+                        <div class="fountain-water">
+                            <div class="water-drop"></div>
+                            <div class="water-drop"></div>
+                            <div class="water-drop"></div>
+                            <div class="water-drop"></div>
+                            <div class="water-drop"></div>
+                            <div class="water-drop"></div>
+                            <div class="water-drop"></div>
+                        </div>
+                    </div>
+                    <div class="coin-container">
+                        <div class="coin" id="wish-coin">
+                            <div class="coin-front"></div>
+                            <div class="coin-back"></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="fountain-instruction">Touch the coin and make a wish...</p>
+                
+                <div class="wish-message hidden">
+                    <div class="wish-english">
+                        <p class="fade-in-text">May all your wishes come true, my love.</p>
+                        <p class="fade-in-text">Your happiness is my greatest joy.</p>
+                        <p class="fade-in-text">Today and always, my heart belongs to you.</p>
+                    </div>
+                    
+                    <div class="wish-hindi">
+                        <p class="fade-in-text hindi-text">आपकी सारी इच्छाएं पूरी हों, मेरी जान।</p>
+                        <p class="fade-in-text hindi-text">आपकी खुशी ही मेरी सबसे बड़ी खुशी है।</p>
+                        <p class="fade-in-text hindi-text">आज और हमेशा, मेरा दिल आपका है।</p>
+                    </div>
+                    
+                    <div class="fountain-hearts">
+                        <span>❤️</span>
+                        <span>💖</span>
+                        <span>💕</span>
+                        <span>💗</span>
+                        <span>💓</span>
+                    </div>
+                </div>
+                
+                <button class="cta-button" id="wish-continue">Continue to Your Gift</button>
+            </div>
+        </section>
+
+        <!-- Audio elements -->
+        <audio id="coin-sound" preload="auto">
+            <source src="audio/coin.mp3" type="audio/mp3">
+        </audio>
+        <audio id="water-sound" preload="auto">
+            <source src="audio/water.mp3" type="audio/mp3">
+        </audio>
+
+        <!-- Gift Section -->
+        <section id="gift" class="section">
+            <div class="content">
+                <h2>A Special Gift For You</h2>
+                <div id="gift-box" class="gift-box">
+                    <div class="gift-lid"></div>
+                    <div class="gift-container"></div>
+                    <div class="gift-bow"></div>
+                    <div class="tap-instruction">Tap to unwrap</div>
+                </div>
+                <div id="gift-message" class="hidden-message">
+                    <div class="heart-container">
+                        <div class="big-heart"></div>
+                    </div>
+                    <p class="special-message">I love you more than words can say!</p>
+                    <p class="gift-info">Add your custom message about a real gift here...</p>
+                </div>
+                <button class="cta-button" id="final-button">See Your Birthday Wishes</button>
+            </div>
+        </section>
+
+        <!-- Final Wishes -->
+        <section id="wishes" class="section">
+            <div class="content">
+                <div class="final-message">
+                    <div class="confetti"></div>
+                    <h1>Happy Birthday! 🎉</h1>
+                    
+                    <div class="birthday-cake">
+                        <div class="cake-top"></div>
+                        <div class="cake-middle"></div>
+                        <div class="cake-bottom"></div>
+                        <div class="candle">
+                            <div class="flame"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="final-content">
+                        <p class="final-note">Wishing you a day filled with happiness, laughter, and all the love in the world!</p>
+                        <p class="special-message">You make every moment special, and I'm so grateful to have you in my life. Here's to many more beautiful memories together! 💖</p>
+                        <div class="hindi-wishes">
+                            <p>जन्मदिन की बहुत बहुत शुभकामनाएँ, शिवानी!</p>
+                            <p>तुम मेरी जिंदगी का सबसे खूबसूरत हिस्सा हो।</p>
+                            <p>हमेशा ऐसे ही मुस्कुराती रहो।</p>
+                        </div>
+                        <div class="signature-block">
+                            <p class="signature">With all my love,</p>
+                            <p class="from">Siddhu</p>
+                        </div>
+                    </div>
+                    
+                    <button class="restart-button" id="restart-button">
+                        <span class="button-text">Relive the Journey</span>
+                        <span class="button-icon">🔄</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Floating balloons will be added by JavaScript -->
+            <div id="balloons-container"></div>
+        </section>
+    </div>
+
+    <!-- Audio Controls -->
+    <div class="audio-controls">
+        <button id="toggle-audio" class="audio-button">🎵</button>
+        <audio id="background-music" loop>
+            <source src="https://example.com/replace-with-your-music-url.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/cake-script.js"></script>
+    <script src="js/final-page.js"></script>
+    <script src="js/journey-script.js"></script>
+    <script src="js/wish-fountain-script.js"></script>
+    <script>
+        // Restart button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const restartButton = document.getElementById('restart-button');
+            if (restartButton) {
+                restartButton.addEventListener('click', function() {
+                    // Stop any ongoing animations
+                    document.querySelectorAll('.balloon, .confetti, .floating-heart').forEach(el => {
+                        el.style.animation = 'none';
+                        el.remove();
+                    });
+                    
+                    // Reset to first section
+                    showSection(0);
+                    
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    
+                    // Reinitialize any necessary components
+                    if (typeof initMemoryGame === 'function') initMemoryGame();
+                    if (typeof initQuiz === 'function') initQuiz();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

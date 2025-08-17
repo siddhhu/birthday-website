@@ -1,0 +1,248 @@
+/* Our Journey Section Styles */
+.journey-container {
+    position: relative;
+    padding: 2rem 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.journey-intro {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #ff6b95;
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+}
+
+.journey-timeline {
+    position: relative;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+
+.journey-timeline:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 4px;
+    background: linear-gradient(to bottom, #ff6b95, #7c3aed);
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 4px;
+    z-index: 0;
+}
+
+.journey-item {
+    position: relative;
+    display: none; /* Initially hidden, will be shown through JavaScript */
+    width: 100%;
+    margin-bottom: 3rem;
+    opacity: 0;
+    transition: all 0.6s ease-in-out;
+}
+
+.journey-item.active {
+    display: block;
+    animation: fadeIn 0.8s forwards;
+}
+
+.journey-dot {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #ff6b95;
+    border: 4px solid #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.heart-dot {
+    background: #ff3366;
+    animation: pulse 1.5s infinite;
+}
+
+.journey-item:before {
+    content: attr(data-year);
+    position: absolute;
+    top: 0;
+    left: calc(50% - 60px);
+    transform: translateX(-100%);
+    background: rgba(255, 107, 149, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.journey-content {
+    position: relative;
+    width: 45%;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    color: #333; /* Ensuring text is dark for visibility */
+}
+
+/* Alternate content position for odd items */
+.journey-item:nth-child(odd) .journey-content {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.journey-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.journey-content h3 {
+    color: #ff3366;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1); /* Adding slight shadow for better visibility */
+}
+
+.journey-content p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333; /* Dark text for visibility */
+}
+
+.hindi-text {
+    font-family: 'Tiro Devanagari Hindi', serif;
+    color: #7c3aed;
+    font-size: 1.1rem;
+    margin-top: 0.75rem;
+}
+
+.highlight-text {
+    font-weight: bold;
+    color: #ff3366;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.journey-item.highlight .journey-content {
+    background: rgba(255, 230, 240, 0.95);
+    border: 2px solid #ff3366;
+}
+
+.journey-message {
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 800px;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    color: #333; /* Ensuring text is dark for visibility */
+}
+
+.highlight-quote {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: #ff3366;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.hindi-quote {
+    font-family: 'Tiro Devanagari Hindi', serif;
+    font-size: 1.3rem;
+    color: #7c3aed;
+}
+
+.journey-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.journey-nav-btn {
+    background: linear-gradient(135deg, #ff6b95, #ff3366);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 51, 102, 0.3);
+}
+
+.journey-nav-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(255, 51, 102, 0.4);
+}
+
+.journey-continue {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 51, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 51, 102, 0);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .journey-timeline:before {
+        left: 30px;
+    }
+    
+    .journey-dot {
+        left: 30px;
+        transform: translateX(0);
+    }
+    
+    .journey-item:before {
+        left: 30px;
+        transform: translateX(-50%);
+        top: -30px;
+    }
+    
+    .journey-content {
+        width: calc(100% - 70px);
+        margin-left: 60px;
+        margin-right: 0;
+    }
+    
+    .journey-item:nth-child(odd) .journey-content {
+        margin-left: 60px;
+        margin-right: 0;
+    }
+}
