@@ -184,9 +184,29 @@
     box-shadow: 0 4px 10px rgba(255, 51, 102, 0.3);
 }
 
+
 .journey-nav-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(255, 51, 102, 0.4);
+}
+
+.journey-timeline::before {
+    z-index: 1; 
+}
+
+/* These are your white content cards.
+   We need to give them a position and a higher z-index
+   to bring them in front of the line. */
+.journey-content {
+    position: relative; /* This is crucial for z-index to work */
+    z-index: 2;
+}
+
+/* These are the dots on the timeline.
+   We also bring them forward so they sit on top of the line. */
+.journey-dot {
+    position: relative;
+    z-index: 3;
 }
 
 .journey-continue {
