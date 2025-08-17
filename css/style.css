@@ -516,11 +516,15 @@ body {
     scrollbar-width: thin;
     scrollbar-color: #ff3366 transparent;
     position: relative;
+    width:100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* Custom scrollbar for WebKit browsers */
 .gallery-container::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
 }
 
 .gallery-container::-webkit-scrollbar-track {
@@ -1501,7 +1505,22 @@ body {
     }
     
     .gallery-container {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 20px;
+        padding: 15px 5px;
+    }
+
+    .gallery-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 10px 5px;
+    }
+    .photo-frame {
+     aspect-ratio: 1/1;
+    }
+    .caption{
+        font-size: 0.8rem;
+        padding: 5px;
     }
     
     .gift-box {
